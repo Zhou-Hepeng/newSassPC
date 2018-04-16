@@ -3,6 +3,7 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
+const ip = require('ip').address()
 
 module.exports = {
   dev: {
@@ -10,10 +11,18 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/dl': {
+        target: 'https://saasm.360che.com.cn',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/dl': 'https://saasm.360che.com.cn'
+        }
+      }
+    },
 
     // Various Dev Server settings
-    host: '192.168.1.210', // can be overwritten by process.env.HOST
+    host: ip, // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
@@ -50,7 +59,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
 
     /**
      * Source Maps
